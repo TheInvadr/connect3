@@ -312,4 +312,3 @@ with tab_play:
             st.button(f"Drop in {c}")
 
     # Example status message
-    st.success("Example: Your turn! (UI placeholder)")
