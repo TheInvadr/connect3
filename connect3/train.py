@@ -99,6 +99,33 @@ def evaluate(agent: QLearningAgent, episodes: int = 2000, opponent: str = "rando
     for _ in range(episodes):
         s = env.reset()
         done = False
+        # NEW: in half of episodes, opponent makes the first move
+        if rng.random() < 0.5:
+            opp_first = opp_fn(env, rng)
+            env.drop(opp_first, player=-1)
+            # if opponent somehow wins immediately (unlikely on empty board), treat as terminal
+            if env.check_winner() == -1:
+                results.append({
+                    "episode": ep + 1,
+                    "epsilon": agent.epsilon,
+                    "reward": -1.0,
+                    "win": 0.0,
+                    "loss": 1.0,
+                    "draw": 0.0,
+                })
+                continue
+            if env.is_full():
+                results.append({
+                    "episode": ep + 1,
+                    "epsilon": agent.epsilon,
+                    "reward": 0.0,
+                    "win": 0.0,
+                    "loss": 0.0,
+                    "draw": 1.0,
+                })
+                continue
+
+            s = env.get_state()
         while not done:
             valid = env.valid_actions()
             a = agent.act(s, valid, rng=rng, greedy=True)  # greedy for eval
