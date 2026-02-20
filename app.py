@@ -302,12 +302,7 @@ with tab_play:
     st.markdown("#### Board")
 
     # Example board placeholder
-    example_board = """
-🔵 ⚪ ⚪ ⚪
-🔴 🔵 ⚪ ⚪
-🔴 🔴 🔵 ⚪
-🔵 🔴 🔵 🔴
-"""
+    example_board = ""
     st.code(example_board)
 
     st.markdown("### Make a move")
