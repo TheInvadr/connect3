@@ -83,7 +83,6 @@ def train_q_agent(cfg: TrainConfig) -> Tuple[QLearningAgent, pd.DataFrame]:
         })
 
     df = pd.DataFrame(results)
-    # rolling win rate for smoother plots
     df["win_rate_200"] = df["win"].rolling(200, min_periods=1).mean()
     df["loss_rate_200"] = df["loss"].rolling(200, min_periods=1).mean()
     df["draw_rate_200"] = df["draw"].rolling(200, min_periods=1).mean()
@@ -99,11 +98,9 @@ def evaluate(agent: QLearningAgent, episodes: int = 2000, opponent: str = "rando
     for _ in range(episodes):
         s = env.reset()
         done = False
-        # NEW: in half of episodes, opponent makes the first move
         if rng.random() < 0.5:
             opp_first = opp_fn(env, rng)
             env.drop(opp_first, player=-1)
-            # if opponent somehow wins immediately (unlikely on empty board), treat as terminal
             if env.check_winner() == -1:
                 results.append({
                     "episode": ep + 1,
@@ -128,7 +125,7 @@ def evaluate(agent: QLearningAgent, episodes: int = 2000, opponent: str = "rando
             s = env.get_state()
         while not done:
             valid = env.valid_actions()
-            a = agent.act(s, valid, rng=rng, greedy=True)  # greedy for eval
+            a = agent.act(s, valid, rng=rng, greedy=True)  
             opp_a = opp_fn(env, rng)
             res = env.step(a, opp_a)
             s = res.state

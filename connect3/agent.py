@@ -25,7 +25,6 @@ class QLearningAgent:
         self.q[(s, a)] = float(v)
 
     def best_action(self, s: State, valid_actions: List[int]) -> int:
-        # tie-break randomly among best actions
         qs = [self.get_q(s, a) for a in valid_actions]
         max_q = max(qs)
         best = [a for a, qv in zip(valid_actions, qs) if qv == max_q]

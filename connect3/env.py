@@ -42,7 +42,6 @@ class Connect3Env:
         return [c for c in range(self.COLS) if self.board[0, c] == 0]
 
     def drop(self, col: int, player: int) -> bool:
-        """Drop a token in col. Returns True if successful, False if invalid (full column)."""
         if col < 0 or col >= self.COLS:
             return False
         if self.board[0, col] != 0:
@@ -57,9 +56,7 @@ class Connect3Env:
         return not any(self.board[0, c] == 0 for c in range(self.COLS))
 
     def check_winner(self) -> int:
-        """
-        Returns: +1 if agent wins, -1 if opponent wins, 0 if no winner.
-        """
+
         B = self.board
         R, C, N = self.ROWS, self.COLS, self.CONNECT_N
 
@@ -98,15 +95,7 @@ class Connect3Env:
         return 0
 
     def step(self, agent_action: int, opponent_action: Optional[int]) -> StepResult:
-        """
-        One environment step consists of:
-        - Agent moves (required)
-        - Check terminal
-        - Opponent moves (if provided and not terminal)
-        - Check terminal
 
-        Returns reward from agent perspective.
-        """
         info: Dict[str, object] = {}
 
         # Agent move

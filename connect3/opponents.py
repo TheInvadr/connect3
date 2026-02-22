@@ -21,12 +21,7 @@ def _winning_move(env: Connect3Env, player: int) -> Optional[int]:
 
 
 def heuristic_opponent(env: Connect3Env, rng: np.random.Generator) -> int:
-    """
-    Simple opponent:
-    1) If opponent can win in one move, do it.
-    2) Else if agent can win in one move, block it.
-    3) Else random.
-    """
+
     win = _winning_move(env, player=-1)
     if win is not None:
         return win
