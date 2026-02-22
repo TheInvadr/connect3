@@ -13,7 +13,7 @@ import time
 
 st.set_page_config(page_title="Connect-3 RL (4x4)", layout="wide")
 st.title("🎮 4×4 Connect-3 — Q-Learning Agent")
-st.caption("A simplified reinforcement learning project: tabular Q-learning + ε-greedy exploration + interactive demo.")
+st.caption("A simplified reinforcement learning project: tabular Q-learning + ε-greedy exploration + interactive demo. By Rahul Nadipalli")
 
 # -----------------------
 # Session state
